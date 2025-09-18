@@ -6,17 +6,19 @@ on:
       - master
   schedule:
     - cron: '*/15 * * * *'
+  workflow_dispatch:  # 添加手动触发选项
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
       - name: 'Set up Python'
         uses: actions/setup-python@v4
         with:
-          python-version: 3.7
+          python-version: 3.10
+          cache: 'pip'
       - name: 'Install dependencies'
         run: if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: 'run cf2dns'
